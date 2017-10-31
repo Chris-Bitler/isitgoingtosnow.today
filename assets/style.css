@@ -1,0 +1,27 @@
+.header-center {
+    text-align: center;
+    width: 100%;
+}
+
+.zip-input {
+    margin: 0 auto;
+    display: block;
+    width: 30%;
+}
+
+.button {
+    margin: 4px auto;
+    display: block;
+}
+
+.response-hidden {
+    display: none;
+    margin: 10px auto 0;
+    text-align: center;
+}
+
+.footer {
+    display: block;
+    margin: 10px auto 0;
+    text-align: center;
+}
