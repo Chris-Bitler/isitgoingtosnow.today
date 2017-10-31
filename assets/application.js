@@ -5,7 +5,11 @@ function queryData() {
     var zipCode = $("#zip-input").val();
     var zipData = { zip: zipCode };
     $.post("weather/query.php", zipData, function(data) {
-        var parsedData = JSON.parse(data);
+        try {
+            var parsedData = JSON.parse(data);
+        } catch (e) {
+            $("#text-response").html("<h5 class='error'>Please enter a valid zip code.</h5>");
+        }
         $("#response").css("display", "block");
         var county = parsedData.county;
         var state = parsedData.state;
