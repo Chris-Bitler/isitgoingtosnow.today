@@ -17,6 +17,6 @@
             <img src="" id="weather_image"/><br />
             <span id="text-response"></span>
         </div>
-        <p class="footerh">Created by Christopher Bitler</p>
+        <p class="footer">Created by Christopher Bitler</p>
     </body>
 </html>
