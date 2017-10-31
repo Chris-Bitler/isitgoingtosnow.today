@@ -5,6 +5,11 @@
     const SNOW_REGEX = "/Chance of snow (\d+)%/";
     const PRECIP_REGEX = "/Chance of precip (\d+)%/";
 
+    /**
+     * Query the weather data at a given zip code
+     * @param string $zip
+     * @return string JSON encoded data saying whether or not it is going to snow and the likelihood for the snow
+     */
     function queryData($zip) {
         $url = sprintf(QUERY_URL, WUNDER_API_KEY, $zip);
         $data = json_decode(
@@ -38,6 +43,11 @@
         ));
     }
 
+    /**
+     * Query openstreetmap for the county and state of a given zipcode
+     * @param string $zip The zip code
+     * @return array The county and state in an array
+     */
     function getZipInfo($zip) {
         $zipData = json_decode(
             file_get_contents(

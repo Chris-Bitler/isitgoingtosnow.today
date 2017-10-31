@@ -1,3 +1,6 @@
+/**
+ * POST to the query endpoint to get information on whether or not it is going to snow.
+ */
 function queryData() {
     var zipCode = $("#zip-input").val();
     var zipData = { zip: zipCode };
