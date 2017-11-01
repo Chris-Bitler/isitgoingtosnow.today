@@ -11,13 +11,13 @@ function queryData() {
             $("#text-response").html("<h5 class='error'>Please enter a valid zip code.</h5>");
         }
         $("#response").css("display", "block");
-        var county = parsedData.county;
+        var town = parsedData.town;
         var state = parsedData.state;
         if (parsedData.snow) {
-            $("#text-response").html("<h5>Yes, there is a " + parsedData.chance + "% chance it will snow today in " + county + ", " + state + "</h5>");
+            $("#text-response").html("<h5>Yes, there is a " + parsedData.chance + "% chance it will snow today in " + town + ", " + state + "</h5>");
             $("#weather_image").attr("src", parsedData.img);
         } else {
-            $("#text-response").html("<h5>No, it is not forecasted to snow in " + county + ", " + state + "</h5>");
+            $("#text-response").html("<h5>No, it is not forecasted to snow in " + town + ", " + state + "</h5>");
             $("#weather_image").attr("src", "");
         }
     });

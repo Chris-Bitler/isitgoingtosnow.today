@@ -1,7 +1,7 @@
 <?php
     include "settings.php";
-    const QUERY_URL = "http://api.wunderground.com/api/%s/forecast/q/%d.json";
-    const NOMINATIM = "http://nominatim.openstreetmap.org/search?format=json&postalcode=%d&country=US&addressdetails=1";
+    const QUERY_URL = "http://api.wunderground.com/api/%s/forecast/q/%s.json";
+    const NOMINATIM = "http://nominatim.openstreetmap.org/search?format=json&postalcode=%s&country=US&addressdetails=1";
     const SNOW_REGEX = "/Chance of snow (\d+)%/";
     const PRECIP_REGEX = "/Chance of precip (\d+)%/";
 
@@ -42,13 +42,15 @@
 
         return json_encode(array(
             'snow' => false,
-            'county' => $zipInfo['county'],
+            'town' => $zipInfo['town'],
             'state' => $zipInfo['state'],
         ));
     }
 
     /**
-     * Query openstreetmap for the county and state of a given zipcode
+     * Query openstreetmap for the town and state of a given zipcode
+     * Thanks to https://gitlab.com/thenaterhood/todayinmy.city/blob/master/assets/js/location.js for providing the
+     * list of possible return values for the town
      * @param string $zip The zip code
      * @return array The county and state in an array
      */
@@ -58,10 +60,25 @@
                 sprintf(NOMINATIM, $zip)
             )
         );
-        $county = $zipData[0]->address->county;
+        $address = $zipData[0]->address;
+        $town = null;
+        if ($address->city) {
+            $town = $address->city;
+        } else if ($address->town) {
+            $town = $address->town;
+        } else if ($address->suburb) {
+            $town = $address->suburb;
+        } else if ($address->hamlet) {
+            $town = $address->hamlet;
+        } else if ($address->village) {
+            $town = $address->village;
+        } else if ($address->locality) {
+            $town = $address->locality;
+        }
+
         $state = $zipData[0]->address->state;
         return array(
-            'county' => $county,
+            'town' => $town,
             'state' => $state,
         );
     }
