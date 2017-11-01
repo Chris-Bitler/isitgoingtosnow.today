@@ -32,7 +32,7 @@
                 'snow' => true,
                 'chance' => $match ? $matches[1] : $matches2[1],
                 'img' => $forecastToday->icon_url,
-                'county' => $zipInfo['county'],
+                'town' => $zipInfo['town'],
                 'state' => $zipInfo['state']
             );
             return json_encode($response);
@@ -76,7 +76,15 @@
             $town = $address->locality;
         }
 
-        $state = $zipData[0]->address->state;
+        if (!$town) {
+            $town = $address->county;
+        }
+
+        if (strtolower(substr($town, sizeof($town)-5,4)) === "town") {
+            $town = substr($town,0,sizeof($town)-6);
+        }
+
+        $state = $address->state;
         return array(
             'town' => $town,
             'state' => $state,
