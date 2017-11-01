@@ -11,8 +11,8 @@
      * @return string JSON encoded data saying whether or not it is going to snow and the likelihood for the snow
      */
     function queryData($zip) {
-        if(!is_numeric($zip)) {
-            die("Only numeric zip codes are allowed");
+        if(!is_numeric($zip) || strlen($zip) != 5) {
+            die("Only valid numeric zip codes are allowed");
         }
 
         $url = sprintf(QUERY_URL, WUNDER_API_KEY, $zip);

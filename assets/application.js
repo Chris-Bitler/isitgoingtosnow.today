@@ -8,7 +8,9 @@ function queryData() {
         try {
             var parsedData = JSON.parse(data);
         } catch (e) {
+            $("#response").css("display", "block");
             $("#text-response").html("<h5 class='error'>Please enter a valid zip code.</h5>");
+            return;
         }
         $("#response").css("display", "block");
         var town = parsedData.town;
