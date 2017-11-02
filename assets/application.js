@@ -4,15 +4,15 @@
 function queryData() {
     var zipCode = $("#zip-input").val();
     var zipData = { zip: zipCode };
+    $("#response").css("display", "block");
+    $("#text-response").html("<h5>Loading..</h5>");
     $.post("weather/query.php", zipData, function(data) {
         try {
             var parsedData = JSON.parse(data);
         } catch (e) {
-            $("#response").css("display", "block");
             $("#text-response").html("<h5 class='error'>Please enter a valid zip code.</h5>");
             return;
         }
-        $("#response").css("display", "block");
         var town = parsedData.town;
         var state = parsedData.state;
         if (parsedData.snow) {
@@ -27,5 +27,10 @@ function queryData() {
 
 $( document ).ready(function() {
         $("#button").click(queryData);
+        $("#zip-input").keyup(function(event) {
+            if (event.keyCode == 13) {
+                queryData();
+            }
+        });
     }
 );
